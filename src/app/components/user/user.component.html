@@ -1,0 +1,41 @@
+<div *ngIf="user">
+  <ol class="breadcrumb">
+    <li><a routerLink="">Home</a></li>
+    <li class="active">{{ user.username }}</li>
+  </ol>
+  <header class="user-header">
+    <div *ngIf="user.avatar_url">
+      <img src="{{user.avatar_url}}" alt="" class="user-thumb img-thumb img-circle">
+    </div>
+    <h5>{{ user.full_name }}</h5>
+    <div class="meta-div">
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="active"><a>Platlists <span class="badge">{{ user.playlist_count }}</span></a></li>
+        <li role="presentation"><a [routerLink]="['tracks']">Tracks <span class="badge">{{ user.track_count }}</span></a></li>
+      </ul>
+    </div>
+  </header> <hr>
+
+  <div class="page-header" *ngIf="user.playlist_count > 0; else elseblock">
+    <h3><small>{{ user.username }}'s Playlists</small></h3>
+  </div>
+  <ng-template #elseblock><p class="lead">No playlist found</p></ng-template>
+
+  <div class="user-playlists">
+    <div class="row">
+      <div *ngFor="let playlist of playlists">
+        <div class="col-md-6">
+          <div class="well playlist">
+            <div>
+              <img [src]="playlist.artwork_url ? playlist.artwork_url : 'http://www.freetoclassifieds.com/no-image.png'" class="playlist-thumb img-thumbnail" alt="{{ playlist.title }}">
+            </div>
+            <h6>{{ playlist.title }}</h6>
+            <!--<p>{{ playlist.description }}</p>-->
+            <p class="duration"><span>duration:</span> {{ playlist.duration | formatTime: 'ms' }}</p>
+            <a [routerLink]="['playlist',playlist.id]" class="btn btn-info">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

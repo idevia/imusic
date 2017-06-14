@@ -1,0 +1,36 @@
+<div *ngIf="user">
+  <ol class="breadcrumb">
+    <li><a routerLink="">Home</a></li>
+    <li class="active">{{ user.username }}</li>
+  </ol>
+  <header class="user-header">
+    <div *ngIf="user.avatar_url">
+      <img src="{{user.avatar_url}}" alt="" class="user-thumb img-thumb img-circle">
+    </div>
+    <h5>{{ user.full_name }}</h5>
+    <div class="meta-div">
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a routerLink="../">Platlists <span class="badge">{{ user.playlist_count }}</span></a></li>
+        <li role="presentation"  class="active"><a [routerLink]="['tracks']">Tracks <span class="badge">{{ user.track_count }}</span></a></li>
+      </ul>
+    </div>
+  </header> <hr>
+    <div class="list-group" *ngIf="tracks; else elseblock">
+      <a class="list-group-item" *ngFor="let track of tracks">
+        <h5>{{ track.title }}</h5>
+        <p>{{ track.duration | formatTime:'ms' }}</p>
+        <div *ngIf="track.streamable">
+          <!--<button class="btn btn-info" (click)="stream(track.id)">Play</button>
+          <button class="btn btn-warning" (click)="AddToNowPlaying(track.id)">Add to now playing</button>-->
+          <button class="btn btn-sm btn-success" (click)="stream(track.id)">▶ Play</button>
+          <button class="btn btn-sm btn-primary" (click)="AddToNowPlaying(track.id)">✚ Add to now playing</button>
+        </div>
+        <ng-template #elseblock>
+          <p class="text-danger">This song is not streamable</p>
+        </ng-template>
+      </a>
+    </div>
+    <ng-template #elseblock>
+      <p>No tracks found</p>
+    </ng-template>
+</div>

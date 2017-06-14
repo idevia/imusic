@@ -1,0 +1,37 @@
+<div class="header-text" *ngIf="!searchStr">
+  <h1> Need Some Music?</h1>
+  <p class="lead">Search to browse new release and find your favourite songs.</p>
+</div>
+
+<form>
+  <div class="form-group">
+    <input type="text" name="searchStr" [(ngModel)]="searchStr" (keyup)="searchMusic()" class="form-control" placeholder="Search music...">
+  </div>
+</form>
+<div *ngIf="searchResults">
+  <div >
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let result of searchResults">
+        <div class="search-res well">
+          <div class="card-img">
+            <img src="{{ result.artwork_url | t500}}" alt="">
+          </div>
+          
+          <h4>{{ result.title }}</h4>
+          <div class="genre">
+            <strong>Genres:</strong>
+            <span *ngFor="let genre of result.genre">{{genre}}</span>
+            <div><h6>uploader: <a routerLink="/user/{{ result.user.id }}">{{ result.user.username }}</a></h6></div>
+            <div *ngIf="result.streamable; else elseblock">
+              <button class="btn btn-sm btn-success" (click)="stream(result.id)">▶ Play</button>
+              <button class="btn btn-sm btn-primary" (click)="AddToNowPlaying(result.id)">✚ Add to now playing</button>
+            </div>
+            <ng-template #elseblock>
+              <p class="text-danger not-streamable">This song is not streamable</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

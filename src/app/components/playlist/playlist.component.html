@@ -1,0 +1,48 @@
+<div *ngIf="playlist">
+  <ol class="breadcrumb">
+    <li><a routerLink="">Home</a></li>
+    <li><a routerLink="/user/{{ playlist.user.id }}">{{ playlist.user.username }}</a></li>
+    <li class="active">{{ playlist.title }}</li>
+  </ol>
+  <header class="playlist-header">
+    <!--<div *ngIf="playlist.artwork_url">-->
+      <img [src]="playlist.artwork_url ? playlist.artwork_url : 'http://www.freetoclassifieds.com/no-image.png'" class="playlist-thumb img-thumbnail"
+        alt="{{ playlist.title }}">
+    <!--</div>-->
+    <h5><small>Title:</small> {{ playlist.title }}</h5>
+    <h6><small>Description:</small> {{ playlist.description }}</h6>
+    <h6><small>Duration:</small> {{ playlist.duration }} miliseconds</h6>
+  </header>
+  <hr>
+
+  <div  *ngIf="playlist.track_count > 0">
+    <h5><small>Tracks</small></h5>
+  </div>
+
+  <div class="user-playlists">
+    <div class="row">
+      <div *ngFor="let track of playlist.tracks">
+        <div class="col-md-4">
+          <div class="well playlist">
+            <div>
+              <img [src]="track.artwork_url ? track.artwork_url : 'http://www.freetoclassifieds.com/no-image.png'" class="playlist-thumb img-thumbnail"
+                alt="{{ track.title }}">
+            </div>
+            <h6>{{ track.title }}</h6>
+            <!--<p>{{ track.description }}</p>-->
+            <p class="duration"><span>duration:</span> {{ track.duration }}</p>
+            
+            <div *ngIf="track.streamable; else elseblock">
+              <a (click)="stream(track.id)" class="btn btn-primary">▶ Play</a>
+              <a (click)="AddToNowPlaying(track.id)" class="btn btn-warning">✚ Add to now playing</a>
+            </div>
+            
+            <ng-template #elseblock>
+              <p class="text-danger">This song is not streamable</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

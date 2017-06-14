@@ -1,0 +1,33 @@
+<button class="btn btn-danger reveal-player-btn" (click)="maximize()" *ngIf="track">♫</button>
+<div class="player-wrapper" [class.visible]="!minimized" *ngIf="track">
+    <div class="media">
+        <div *ngIf="track.streamable; else elseblock">
+            <article class="player">
+                <!--<div class="album-art">
+                    <img src="{{ track.artwork_url }}">
+                </div>-->
+                <div class="player-body">
+                    <div class="player-info">
+                        <h2 class="title">{{track.title}}</h2>
+                        <span class="ham" (click)="minimize()">x</span>
+                    </div>
+                </div>
+                <audio src="{{track.stream_url}}" controls autoplay (ended)="mediaEnded(track)"></audio>
+            </article>
+        </div>
+        <ng-template #elseblock>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+                <strong>Sorry!</strong> This is not streamable.
+            </div>
+        </ng-template>
+    </div>
+
+    <div *ngIf="nowPlayingList?.length > 0" class="playlist" [class.visible]="!minimized">
+        <ol class="list-group" *ngIf="nowPlayingList">
+            <li (click)="playThisSong(listedSong)" class="list-group-item listed-song" [class.active]="track && (track.id == listedSong.id)" *ngFor="let listedSong of nowPlayingList">
+                {{listedSong.title}}
+            </li>        
+        </ol>
+    </div>
+</div>

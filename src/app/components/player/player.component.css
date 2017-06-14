@@ -1,0 +1,74 @@
+audio{
+    width: 100%;
+}
+.player-wrapper{
+	position: fixed;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 100%;
+	max-width: 480px;
+	background: #1b1a19;
+	height: 100%;
+	right: -100%;
+	top: 60px;
+	z-index: 2;
+	border-top-left-radius: 5px;
+}
+.player-wrapper.visible{
+	right: 0;
+}
+
+.album-art img{
+	width:200px;
+	height: 200px;
+	display: block;
+    margin: 20px auto 0 auto;
+    margin-top: 20px;
+}
+.title {
+	text-align:center;
+	color: #fff;
+	font-size: 20px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+	margin-top: 33px;
+	margin-left: 10px;
+}
+.ham{
+	position: absolute;
+	color: #fff;
+	top: 5px;
+	left: 5px;
+	cursor: pointer;
+}
+.list-group-item{
+	background-color: transparent;
+	border: none;
+}
+.list-group-item:last-child,
+.list-group-item:first-child{
+	border-radius: 0;
+}
+.list-group-item{
+	color: #999;
+	cursor: pointer;
+}
+.list-group-item:hover{
+	background-color: #3b3b3b;
+	color: #eaeaea;
+}
+.list-group-item.active {
+    background-color: #505050;
+}
+
+.reveal-player-btn{
+	position: fixed;
+	bottom: 35px;
+	right: 35px;
+	border-radius: 50%;
+	line-height: 25px;
+	transform: scale(1.5);
+	z-index: 1;
+}
